@@ -1,14 +1,11 @@
 from forecaster import samples
-import torch
-import torch.nn as nn
-from flask import Flask
-
+from flask import Flask, jsonify, request
+import random
 
 app = Flask(__name__)
 
 
 @app.route("/")
 def hello_world():
-    rnn2 = torch.load('character_names.pth')
-    result = samples('female', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ')
-    return result[0]
+    result = samples('female', random.choice(list('ABCDEFGHIJKLMNOPQRSTUVWXYZ')))
+    return jsonify(result[0])
